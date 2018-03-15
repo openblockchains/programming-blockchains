@@ -108,7 +108,7 @@ A: SHA256 == Secure Hash Algorithms 256 Bits
 SHA256 is a (secure) hashing algorithm designed by the National Security Agency (NSA)
 of the United States of America (USA).
 
-Find out more @ [Secure Hash Algorithms (SHA) @ Ikipedia](https://en.wikipedia.org/wiki/Secure_Hash_Algorithms).
+Find out more @ [Secure Hash Algorithms (SHA) @ Wikipedia](https://en.wikipedia.org/wiki/Secure_Hash_Algorithms).
 
 
 A (secure) hash is also known as:
