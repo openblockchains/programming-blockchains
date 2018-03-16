@@ -470,7 +470,7 @@ end # class Block
 
 Note: For the first block, that is, the genesis block,
 there's no prev(ious) block. What (block) hash to use?
-Let's follow the classic bitcoin conventions and lets use all zeros
+Let's follow the classic bitcoin convention and lets use all zeros
 eg. `0000000000000000000000000000000000000000000000000000000000000000`.
 
 
@@ -488,7 +488,8 @@ b0 = Block.new( 'Hello, Cryptos!', '00000000000000000000000000000000000000000000
 Let's mine (build) some more blocks linked (chained) together with crypto hashes:
 
 ``` ruby
-b1 = Block.new( 'Hello, Cryptos! - Hello, Cryptos!', '000047954e7d5877b6dea6915c48e84579b5c64fb58d5b6488863c241f1ce2af' )
+b1 = Block.new( 'Hello, Cryptos! - Hello, Cryptos!', 
+                '000047954e7d5877b6dea6915c48e84579b5c64fb58d5b6488863c241f1ce2af' )
 # -or-
 b1 = Block.new( 'Hello, Cryptos! - Hello, Cryptos!', b0.hash )
 #=> #<Block:0x4dce620
