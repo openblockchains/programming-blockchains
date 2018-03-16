@@ -198,16 +198,16 @@ TXT
 
 Let's add a proof-of-work to the block and hash.
 and let's start mining to find the nonce (=Number used ONCE)
-and let's start with he "hard-coded" difficulty of two leading zeros '00'.
+and let's start with the "hard-coded" difficulty of two leading zeros '00'.
 
 In classic bitcoin you have to compute a hash
 that starts with leading zeros (`00`). The more leading zeros the harder (more difficult) to compute. Let's keep it easy to compute and let's start with two leading zeros (`00`), that is, 16^2 = 256 possibilities (^1,2).
 Three leading zeros (`000`) would be 16^3 = 4 096 possibilities
 and four zeros (`0000`) would be 16^4 = 65 536 and so on.
 
-(^1): 16 possibilities because it's a hex or hexadecimal or base 16 number, that is, `0` `1` `2` `3` `4` `6` `7` `8` `9` `a` (10) `b` (11) `c` (12) `d` (13) `e` (14) `f` (15).
+(1): 16 possibilities because it's a hex or hexadecimal or base 16 number, that is, `0` `1` `2` `3` `4` `6` `7` `8` `9` `a` (10) `b` (11) `c` (12) `d` (13) `e` (14) `f` (15).
 
-(^2): A random secure hash algorithm needs on average 256 tries (might be lets say 305 tries, for example, because it's NOT a perfect statistic distribution of possibilities).
+(2): A random secure hash algorithm needs on average 256 tries (might be lets say 305 tries, for example, because it's NOT a perfect statistic distribution of possibilities).
 
 
 ``` ruby
@@ -411,8 +411,155 @@ Digest::SHA256.hexdigest( '15353Data Data Data Data' )
 
 ## Blockchain
 
-To be continued.
+Blockchain! Blockchain! Blockchain!
 
+![](i/fake-dilbert-blockchain.png)
+
+Let's link the (crypto) blocks together into a chain of blocks, that is, blockchain,
+to revolutionize the world one block at a time.
+
+Trivia Quiz: What's the unique id(entifier) of a block?
+
+- (A) (Secure) Hash
+- (B) Block Hash
+- (C) Digital (Crypto) Digest
+
+A: All of the above :-). (Secure) hash == block hash == digital (crypto) digest.
+
+Thus, add the (secure) hash of the prev(ious) block to
+the new block and the hash calculation e.g.:
+
+```ruby
+Digest::SHA256.hexdigest( "#{nonce}#{prev}#{data}" )
+```
+
+Bingo! Blockchain! Blockchain! Blockchain! All together now:
+
+
+```ruby
+require 'digest'
+require 'pp'      ## pp = pretty print
+
+
+class Block
+  attr_reader :data
+  attr_reader :prev   # prev(ious) (block) hash
+  attr_reader :hash
+  attr_reader :nonce  # number used once - lucky (mining) lottery number
+
+  def initialize(data, prev)
+    @data          = data
+    @prev          = prev
+    @nonce, @hash  = compute_hash_with_proof_of_work
+  end
+
+  def compute_hash_with_proof_of_work( difficulty='0000' )
+    nonce = 0
+    loop do
+      hash = Digest::SHA256.hexdigest( "#{nonce}#{prev}#{data}" )
+      if hash.start_with?( difficulty )
+        return [nonce,hash]    ## bingo! proof of work if hash starts with leading zeros (00)
+      else
+        nonce += 1             ## keep trying (and trying and trying)
+      end
+    end # loop
+  end # method compute_hash_with_proof_of_work
+
+end # class Block
+```
+
+Note: For the first block, that is, the genesis block,
+there's no prev(ious) block. What (block) hash to use?
+Let's follow the classic bitcoin conventions and lets use all zeros
+eg. `0000000000000000000000000000000000000000000000000000000000000000`.
+
+
+Genesis. A new blockchain is born!
+
+``` ruby
+b0 = Block.new( 'Hello, Cryptos!', '0000000000000000000000000000000000000000000000000000000000000000' )
+#=> #<Block:0x4d11ce0
+#   @data="Hello, Cryptos!",
+#    @hash="000047954e7d5877b6dea6915c48e84579b5c64fb58d5b6488863c241f1ce2af",
+#    @nonce=24287,
+#    @prev="0000000000000000000000000000000000000000000000000000000000000000">
+```
+
+Let's mine (build) some more blocks linked (chained) together with crypto hashes:
+
+``` ruby
+b1 = Block.new( 'Hello, Cryptos! - Hello, Cryptos!', '000047954e7d5877b6dea6915c48e84579b5c64fb58d5b6488863c241f1ce2af' )
+# -or-
+b1 = Block.new( 'Hello, Cryptos! - Hello, Cryptos!', b0.hash )
+#=> #<Block:0x4dce620
+#      @data="Hello, Cryptos! - Hello, Cryptos!",
+#      @hash="00002acb41e00fb252b8fedeed7d4a629dafb28517bcf6235b90367ee6f63a7f",
+#      @nonce=191453,
+#      @prev="000047954e7d5877b6dea6915c48e84579b5c64fb58d5b6488863c241f1ce2af">
+
+b2 = Block.new( 'Your Name Here', b1.hash )
+#=> #<Block:0x4d9d798
+#       @data="Your Name Here",
+#       @hash="0000d85423bc8d3ccda0e83ddd6e7e9d6a30f393b73705409b481be57eeaad37",
+#       @nonce=109213,
+#       @prev="00002acb41e00fb252b8fedeed7d4a629dafb28517bcf6235b90367ee6f63a7f">
+
+b3 = Block.new( 'Data Data Data Data', b2.hash )
+#=> #<Block:0x46cfc80
+#       @data="Data Data Data Data",
+#       @hash="000000c652265dcf44f0b18911435100f4677bdc468f8f1dd85910d581b3542d",
+#       @nonce=129257,
+#       @prev="0000d85423bc8d3ccda0e83ddd6e7e9d6a30f393b73705409b481be57eeaad37">
+```
+
+Let's store all blocks together (in an array):
+
+``` ruby
+blockchain = [b0, b1, b2, b3]
+
+pp blockchain      ## pretty print (pp) blockchain
+
+#=> [#<Block:0x4d010a8
+#       @data="Hello, Cryptos!",
+#       @hash="000047954e7d5877b6dea6915c48e84579b5c64fb58d5b6488863c241f1ce2af",
+#       @nonce=24287,
+#       @prev="0000000000000000000000000000000000000000000000000000000000000000">,
+#      #<Block:0x4685388
+#       @data="Hello, Cryptos! - Hello, Cryptos!",
+#       @hash="00002acb41e00fb252b8fedeed7d4a629dafb28517bcf6235b90367ee6f63a7f",
+#       @nonce=191453,
+#       @prev="000047954e7d5877b6dea6915c48e84579b5c64fb58d5b6488863c241f1ce2af">,
+#      #<Block:0x4d6d120
+#       @data="Your Name Here",
+#       @hash="0000d85423bc8d3ccda0e83ddd6e7e9d6a30f393b73705409b481be57eeaad37",
+#       @nonce=109213,
+#       @prev="00002acb41e00fb252b8fedeed7d4a629dafb28517bcf6235b90367ee6f63a7f">,
+#      #<Block:0x469ec30
+#       @data="Data Data Data Data",
+#       @hash="000000c652265dcf44f0b18911435100f4677bdc468f8f1dd85910d581b3542d",
+#       @nonce=129257,
+#       @prev="0000d85423bc8d3ccda0e83ddd6e7e9d6a30f393b73705409b481be57eeaad37">]
+```
+
+Note: If you want to change the data in block b1, for examples,
+you have to change all the blocks on top (that is, b2 and b3) too and update their hashes too!
+With every block added breaking the chain gets harder and harder and harder
+(not to say practically impossible!).
+That's the magic of the blockchain - it's (almost) unbreakable if you have many shared / cloned copies.
+The data gets more secure with every block added (on top), ...
+
+<!--
+that's why the convention in classic bitcoin is to wait for six (6) "confirmations"
+that is, blocks added on top, for
+and to wait for one hundred (100) "confirmations" for
+unlocking the mining rewards.
+-->
+
+
+
+## (Crypto) Block with Transactions (Tx)
+
+To be continued.
 
 
 ## Questions? Comments?
