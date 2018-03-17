@@ -22,8 +22,8 @@ class Block
 
   def compute_hash_with_proof_of_work( difficulty='00' )
     nonce = 0
+    time  = Time.now.to_i
     loop do
-      time = Time.now.to_i
       hash = Digest::SHA256.hexdigest( "#{nonce}#{time}#{difficulty}#{prev}#{data}" )
       if hash.start_with?( difficulty )
         return [nonce,time]    ## bingo! proof of work if hash starts with leading zeros (00)

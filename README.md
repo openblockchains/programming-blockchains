@@ -583,13 +583,18 @@ plus checking up on the proof-of-work difficulty (hash must start with `0000`):
 
 
 ``` ruby
-b0.hash == Digest::SHA256.hexdigest( "#{b0.nonce}#{b0.prev}#{b0.data}" )
+## shortcut convenience helper
+def sha256( data )
+  Digest::SHA256.hexdigest( data )
+end
+
+b0.hash == sha256( "#{b0.nonce}#{b0.prev}#{b0.data}" )
 # => true
-b1.hash == Digest::SHA256.hexdigest( "#{b1.nonce}#{b1.prev}#{b1.data}" )
+b1.hash == sha256( "#{b1.nonce}#{b1.prev}#{b1.data}" )
 # => true
-b2.hash == Digest::SHA256.hexdigest( "#{b2.nonce}#{b2.prev}#{b2.data}" )
+b2.hash == sha256( "#{b2.nonce}#{b2.prev}#{b2.data}" )
 # => true
-b3.hash == Digest::SHA256.hexdigest( "#{b3.nonce}#{b3.prev}#{b3.data}" )
+b3.hash == sha256( "#{b3.nonce}#{b3.prev}#{b3.data}" )
 # => true
 
 b0.hash.start_with?( '0000' )
@@ -650,7 +655,7 @@ Link it to the real world! Let's add a timestamp:
 
 ``` ruby
 Time.now
-# => 2018-03-17 12:43:16 +0100
+# => 2018-03-17 14:12:01 +0100
 ```
 
 or in Epoch time (that is, seconds since January 1st, 1970)
@@ -658,15 +663,15 @@ or in Epoch time (that is, seconds since January 1st, 1970)
 
 ``` ruby
 Time.now.to_i
-# => 1521286996
+# => 1521292321
 ```
 
 Note: You can use `Time.at` to convert Epoch time back
 to the standard "classic" format:
 
 ``` ruby
-Time.at( 1521286996 )
-# => 2018-03-17 12:43:16 +0100
+Time.at( 1521292321 )
+# => 2018-03-17 14:12:01 +0100
 ```
 
 Now the blockchain must always move forward,
@@ -720,8 +725,8 @@ class Block
 
   def compute_hash_with_proof_of_work( difficulty='00' )
     nonce = 0
+    time  = Time.now.to_i
     loop do
-      time = Time.now.to_i
       hash = Digest::SHA256.hexdigest( "#{nonce}#{time}#{difficulty}#{prev}#{data}" )
       if hash.start_with?( difficulty )
         return [nonce,time]    ## bingo! proof of work if hash starts with leading zeros (00)
@@ -742,9 +747,9 @@ b0 = Block.new( 'Hello, Cryptos!', '00000000000000000000000000000000000000000000
 #=> #<Block:0x4d00700
 #       @data="Hello, Cryptos!",
 #       @difficulty="0000",
-#       @nonce=99038,
+#       @nonce=215028,
 #       @prev="0000000000000000000000000000000000000000000000000000000000000000",
-#       @time=1521289674>
+#       @time=1521292321>
 ```
 
 Let's mine (build) some more blocks linked (chained) together with crypto hashes:
@@ -754,25 +759,25 @@ b1 = Block.new( 'Hello, Cryptos! - Hello, Cryptos!', b0.hash )
 #=> #<Block:0x4ed7940
 #       @data="Hello, Cryptos! - Hello, Cryptos!",
 #       @difficulty="0000",
-#       @nonce=185901,
-#       @prev="0000b3f0b8f90d3d720705b83e5adb37e6c2786e80b65eecaf8addb27050d1fd",
-#       @time=1521290247>
+#       @nonce=3264,
+#       @prev="0000071b9c71675db90b0bb819236d76be97ac75f9f379d078456495133b18c6",
+#       @time=1521292325>
 
 b2 = Block.new( 'Your Name Here', b1.hash )
 #=> #<Block:0x2f297e8
 #       @data="Your Name Here",
 #       @difficulty="0000",
-#       @nonce=332006,
-#       @prev="0000a0529a38556ae4363c78ff5b0a85647e453bfe0dacb429f00edd57833f67",
-#       @time=1521290253>
+#       @nonce=81552,
+#       @prev="0000a6f83a7883891afea2536891df228a1c527add36c1cc38999e566eeed6a7",
+#       @time=1521292325>
 
 b3 = Block.new( 'Data Data Data Data', b2.hash )
 #=> #<Block:0x4dbd9d0
 #       @data="Data Data Data Data",
 #       @difficulty="0000",
-#       @nonce=45212,
-#       @prev="0000c0fae78eff53d60476309ca0e2eddce403a82149eaa4342c4a485ab140b4",
-#       @time=1521290254>
+#       @nonce=43010,
+#       @prev="00009b581870a4e0792f84786e1d089e32f2820459cd878298c6b62974afd0bc",
+#       @time=1521292326>
 ```
 
 
