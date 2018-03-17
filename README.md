@@ -488,7 +488,7 @@ b0 = Block.new( 'Hello, Cryptos!', '00000000000000000000000000000000000000000000
 Let's mine (build) some more blocks linked (chained) together with crypto hashes:
 
 ``` ruby
-b1 = Block.new( 'Hello, Cryptos! - Hello, Cryptos!', 
+b1 = Block.new( 'Hello, Cryptos! - Hello, Cryptos!',
                 '000047954e7d5877b6dea6915c48e84579b5c64fb58d5b6488863c241f1ce2af' )
 # -or-
 b1 = Block.new( 'Hello, Cryptos! - Hello, Cryptos!', b0.hash )
@@ -555,6 +555,95 @@ that is, blocks added on top, for
 and to wait for one hundred (100) "confirmations" for
 unlocking the mining rewards.
 -->
+
+
+
+## Blockchain Broken?
+
+How do you know if anyone changed (broke) the (almost) unbreakable blockchain
+and changed some data in blocks?
+Let's run tests checking up on the chained / linked (crypto) hashes:
+
+``` ruby
+b0.prev == '0000000000000000000000000000000000000000000000000000000000000000'
+#=> true
+b1.prev == b0.hash
+#=> true
+b2.prev == b1.hash
+#=> true
+b3.prev == b2.hash
+#=> true
+```
+
+All true, true, true, true. All in order? What if someone changes the data
+but keeps the original (now fake non-matching) hash?
+Let's run more tests checking up on the (crypto) hashes by recalculating
+(using `nonce`+`prev`+`data`) right on the spot
+plus checking up on the proof-of-work difficulty (hash must start with `0000`):
+
+
+``` ruby
+b0.hash == Digest::SHA256.hexdigest( "#{b0.nonce}#{b0.prev}#{b0.data}" )
+# => true
+b1.hash == Digest::SHA256.hexdigest( "#{b1.nonce}#{b1.prev}#{b1.data}" )
+# => true
+b2.hash == Digest::SHA256.hexdigest( "#{b2.nonce}#{b2.prev}#{b2.data}" )
+# => true
+b3.hash == Digest::SHA256.hexdigest( "#{b3.nonce}#{b3.prev}#{b3.data}" )
+# => true
+
+b0.hash.start_with?( '0000' )
+# => true
+b1.hash.start_with?( '0000' )
+# => true
+b2.hash.start_with?( '0000' )
+# => true
+b3.hash.start_with?( '0000' )
+# => true
+```
+
+All true, true, true, true, true, true, true, true. All in order? Yes. The blockchain is (almost) unbreakable.
+
+
+Let's try to break the unbreakable.
+Let's change the block b1 from
+`'Hello, Cryptos!'` to `'Hello, Koruptos!'`:
+
+``` ruby
+b1 = Block.new( 'Hello, Koruptos! - Hello, Koruptos!', b0.hash )
+#=> #<Block:0x4daa9f8
+#       @data="Hello, Koruptos! - Hello, Koruptos!",
+#       @hash="00000c915e240a2b386fc86ef6170261a19292b9fdebebce049c621da1ab7e8f",
+#       @nonce=27889,
+#       @prev="000047954e7d5877b6dea6915c48e84579b5c64fb58d5b6488863c241f1ce2af">
+```
+
+Now if you check:
+
+``` ruby
+b0.prev == '0000000000000000000000000000000000000000000000000000000000000000'
+#=> true
+b1.prev == b0.hash
+#=> true
+b2.prev == b1.hash
+#=> false
+b3.prev == b2.hash
+#=> true
+```
+
+Fail! False! No longer all true. The chain is now broken. The  
+the chained / linked (crypto) hashes
+
+- `b1.hash` => `00002acb41e00fb252b8fedeed7d4a629dafb28517bcf6235b90367ee6f63a7f`
+- `b2.prev` => `00000c915e240a2b386fc86ef6170261a19292b9fdebebce049c621da1ab7e8f`
+
+do no longer NOT match.
+The only way to get the chained / linked (crypto) hashes
+to true, true, true, true is to rebuild (remine) all blocks on top.
+
+
+
+
 
 
 
