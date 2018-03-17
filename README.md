@@ -951,7 +951,7 @@ is still running... expected to find the lucky number in the next hours...
 
 Trivia Quiz: What's the Hash Rate of the Bitcoin Classic Network?
 
-A: About 25 000 trillions of hashes per second (in March 2018)
+A: About 25 million trillions of hashes per second (in March 2018)
 
 Estimated number of tera hashes per second (trillions of hashes per second)
 the Bitcoin network is performing.
