@@ -844,6 +844,8 @@ Let's use a "stand-alone" version of the by now "classic" `compute_hash_with_pro
 function:
 
 ``` ruby
+require 'digest'
+
 def compute_hash_with_proof_of_work( data, difficulty='00' )
   nonce = 0
   loop do
