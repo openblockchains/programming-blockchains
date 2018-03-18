@@ -973,8 +973,9 @@ Note: You can search and browse bitcoin blocks using (online)
 block explorers. Example:
 
 - [blockchain.info/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f](https://blockchain.info/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f)
-[blockexplorer.com/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f](https://blockexplorer.com/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f)
+- [blockexplorer.com/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f](https://blockexplorer.com/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f)
 - and others.
+
 
 The classic bitcoin (crypto) block hash gets calculated from
 the 80-byte block header:
@@ -1012,7 +1013,7 @@ Time.at( 1231006505 ).utc
 
 Yes, the bitcoin classic started
 on January 3rd, 2019 at 18h 15m 5s (2009-01-03 18:15:05).
-Or in the other direction, use:
+Or in the other direction use:
 
 ``` ruby
 Time.utc( 2009, 1, 3, 18, 15, 5 ).to_i
@@ -1023,7 +1024,7 @@ What's UTC? Coordinated Universal Time is the "standard" world time.
 Note: UTC does NOT observe daylight saving time.
 
 
-**Binary Bytes - Little Endian vs Big Endian**
+**Binary Bytes - Little End(ian) vs Big End(ian)**
 
 In theory calculating the block hash is as easy as:
 
@@ -1033,7 +1034,7 @@ header = "..."           # 80 bytes (binary)
 d1 = sha256( header )
 d2 = sha256( d2 )
 d2.to_s                  # convert 32-byte (256-bit) binary to hex string
-#=> 000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
+#=> "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"
 ```
 
 Note: Classic bitcoin uses a double hash, that is,
@@ -1043,7 +1044,7 @@ In practice let's deal with the different byte order conversions
 from big endian (most significant bit first)
 to little endian (least significant bit first) and back again.
 
-Read more @ [Endianness @ Wikipedia](https://en.wikipedia.org/wiki/Endianness).
+Tip: Read more @ [Endianness @ Wikipedia](https://en.wikipedia.org/wiki/Endianness).
 
 
 Let's put together the (binary) 80-byte header using the
