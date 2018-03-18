@@ -1032,19 +1032,20 @@ In theory calculating the block hash is as easy as:
 ## pseudo-code
 header = "..."           # 80 bytes (binary)
 d1 = sha256( header )
-d2 = sha256( d2 )
+d2 = sha256( d1 )
 d2.to_s                  # convert 32-byte (256-bit) binary to hex string
 #=> "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"
 ```
 
 Note: Classic bitcoin uses a double hash, that is,
-for even higher security the hash gets hashed twice with the SHA256 algorithm.
+for even higher security the hash gets hashed twice with the SHA256 algorithm 
+e.g. `sha256(sha256(header))`.
 
 In practice let's deal with the different byte order conversions
 from big endian (most significant bit first)
 to little endian (least significant bit first) and back again.
 
-Tip: Read more @ [Endianness @ Wikipedia](https://en.wikipedia.org/wiki/Endianness).
+Tip: Read more about [Endianness @ Wikipedia](https://en.wikipedia.org/wiki/Endianness).
 
 
 Let's put together the (binary) 80-byte header using the
