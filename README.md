@@ -1012,7 +1012,7 @@ Time.at( 1231006505 ).utc
 ```
 
 Yes, the bitcoin classic started
-on January 3rd, 2019 at 18h 15m 5s (2009-01-03 18:15:05).
+on January 3rd, 2009 at 18h 15m 5s (2009-01-03 18:15:05).
 Or in the other direction use:
 
 ``` ruby
