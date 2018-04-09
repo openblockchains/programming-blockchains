@@ -30,7 +30,7 @@ Digest::SHA256.hexdigest( 'Hello, Cryptos! - Hello, Cryptos! - Hello, Cryptos!' 
 Digest::SHA256.hexdigest( 'Your Name Here' )
 #=> "39459289c09c33a7b516bef926c1873c6ecd2e6db09218b065d7465b6736f801"
 Digest::SHA256.hexdigest( 'Data Data Data Data' )
-#=> "39459289c09c33a7b516bef926c1873c6ecd2e6db09218b065d7465b6736f801"
+#=> "a7bbfc531b2ecf641b9abcd7ad8e50267e1c873e5a396d1919f504973090565a"
 ```
 
 
