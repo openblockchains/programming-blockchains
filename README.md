@@ -205,7 +205,7 @@ that starts with leading zeros (`00`). The more leading zeros the harder (more d
 Three leading zeros (`000`) would be 16^3 = 4 096 possibilities
 and four zeros (`0000`) would be 16^4 = 65 536 and so on.
 
-(1): 16 possibilities because it's a hex or hexadecimal or base 16 number, that is, `0` `1` `2` `3` `4` `6` `7` `8` `9` `a` (10) `b` (11) `c` (12) `d` (13) `e` (14) `f` (15).
+(1): 16 possibilities because it's a hex or hexadecimal or base 16 number, that is, `0` `1` `2` `3` `4` `5` `6` `7` `8` `9` `a` (10) `b` (11) `c` (12) `d` (13) `e` (14) `f` (15).
 
 (2): A random secure hash algorithm needs on average 256 tries (might be lets say 305 tries, for example, because it's NOT a perfect statistic distribution of possibilities).
 
