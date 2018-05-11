@@ -1,8 +1,5 @@
 
-<!--
 See the live version @ [`yukimotopress.github.io/programming-blockchains-step-by-step`](http://yukimotopress.github.io/programming-blockchains-step-by-step)
-
--->
 
 ---
 
