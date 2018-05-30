@@ -106,7 +106,7 @@ Trivia Quiz: What's SHA256?
 - (C) Sweet Home Austria
 - (D) Super High Aperture
 
-A: SHA256 == Secure Hash Algorithms 256 Bits
+B: SHA256 == Secure Hash Algorithms 256 Bits
 
 SHA256 is a (secure) hashing algorithm designed by the National Security Agency (NSA)
 of the United States of America (USA).
