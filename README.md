@@ -4,7 +4,7 @@ See the live version @ [`yukimotopress.github.io/programming-blockchains-step-by
 ---
 
 
-# Programming Blockchains Step-by-Step (Manuscripts Book Edition)
+# Programming Blockchains Step-by-Step Book / Guide
 
 _Let's build blockchains from scratch (zero) step by step.
 Let's start with crypto hashes ..._
@@ -13,17 +13,21 @@ Let's start with crypto hashes ..._
 by [Gerald Bauer](https://github.com/geraldb), et al
 
 
-- [Programming Blockchains Step-by-Step](manuscript/README.md)
-  - [(Crypto) Hash](manuscript/README.md#crypto-hash)
-  - [(Crypto) Block](manuscript/README.md#crypto-block)
-  - [(Crypto) Block with Proof-of-Work](manuscript/README.md#crypto-block-with-proof-of-work)
-  - [Blockchain](manuscript/README.md#blockchain)
-  - [Blockchain Broken?](manuscript/README.md#blockchain-broken)
-  - [Timestamping](manuscript/README.md#timestamping)
-  - [Mining, Mining, Mining](manuscript/README.md#mining-mining-mining)
-  - [Bitcoin, Bitcoin, Bitcoin](manuscript/README.md#bitcoin-bitcoin-bitcoin)
+- [(Crypto) Hash](01_crypto_hash.md)
+- [(Crypto) Block 'n' (Crypto) Block with Proof-of-Work](02_crypto_block.md)
+- [Blockchain 'n' Blockchain Broken?](03_blockchain.md)
+- [Timestamping](04_timestamping.md)
+- [Mining, Mining, Mining](05_mining.md)
+- [Bitcoin, Bitcoin, Bitcoin](06_bitcoin.md)
+
+To be continued
+
+<!-- break
   - [(Crypto) Block with Transactions (Tx)](manuscript/README.md#crypto-block-with-transactions-tx)
-  - [References / Links](manuscript/README.md#references--links)
+-->
+
+- [References / Links](A1_resources.md)
+
 
 
 ## License
