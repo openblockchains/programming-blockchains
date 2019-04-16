@@ -120,3 +120,24 @@ the Bitcoin network is performing.
 ![](i/bitcoin-hashrate.png)
 
 (Source: [blockchain.info](https://blockchain.info/charts/hash-rate))
+
+
+
+**BEWARE: Bitcoin is a gigantic ponzi scheme¹.
+To the moon!? The new gold standard!? 
+Do NOT "invest" trying to get-rich-quick HODLing. 
+Why not? The bitcoin code is archaic and out-of-date.
+Burn, baby, burn! Proof-of-work / waste is a global
+energy environmental disaster
+using 300 kW/h per bitcoin transaction (!) that's about 179 kilograms of CO₂ emissions².
+Programmable money (or the internet of value) 
+for all future generations with (bitcoin) script
+without loops and jumps (gotos) and all "stateless"!? LOL.**
+
+¹:  ![](i/trolly-ponzi.png)
+
+(Source: [Best of Bitcoin Maximalist - Scammers, Morons, Clowns, Shills & BagHODLers - Inside The New New Crypto Ponzi Economics](https://bitsblocks.github.io/bitcoin-maximalist))
+
+²: Assuming let's say 0.596 kilograms of CO₂ per kW/h 
+(that's the energy efficiency in Germany) that's 
+about 179 kilograms of CO₂ per bitcoin transaction (300 kW/h × 0.596 kg). For more insights see the [Bitcoin Energy Consumption Index](https://digiconomist.net/bitcoin-energy-consumption).
